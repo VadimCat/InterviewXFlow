@@ -5,6 +5,8 @@ public class ExtPlayer : Player
 	public event Action Changed {
 		add {
 			innerChanged += value;
+			//Инициируем событие, чтобы обновить подписчиков,
+			//но следует использовать только после согласования с командой на проекте в виде конвенции
 			value();
 		}
 		remove {
