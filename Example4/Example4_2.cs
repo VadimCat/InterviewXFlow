@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Это скорее CheatView/CheatButton
 public class CommonCheat : MonoBehaviour
 {
     [SerializeField] private Text _text;
@@ -39,6 +40,7 @@ public class CheatManager
     }
 }
 
+// Лишний MonoBehaviour, может только добавить читы, но удалить их никак нельзя
 public class SomeManagerWithCheats : MonoBehaviour
 {
     [SerializeField] private CheatManager.CommonCheat _cheatPrefab;

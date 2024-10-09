@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//Можно не выдумывать велосипед, а заиспольновать уже готовые решения, например, SrDebugger
 
+//Это скорее CheatView/CheatButton
 public class CheatElementBehaviour : MonoBehaviour
 {
     [SerializeField] private Text _text;
@@ -17,6 +19,7 @@ public class CheatElementBehaviour : MonoBehaviour
 
 public class CheatManager
 {
+    // Это скорее просто Cheat
     public class CheatActionDescription
     {
         public readonly string name;
@@ -43,6 +46,7 @@ public class CheatManager
 
     private GameObject _panel;
 
+    //Можно передавать в конструкторе
     public void Setup(GameObject panelPrefab, CheatElementBehaviour cheatElementPrefab)
     {
         _panelPrefab = panelPrefab;
@@ -54,6 +58,7 @@ public class CheatManager
         _providers.Add(provider);
     }
 
+    // Смешана логика отображения и добавления читов, следует разделить на два объекта
     public void ShowCheatPanel()
     {
         if (_panel != null)
@@ -81,10 +86,15 @@ public class CheatManager
     }
 }
 
+// Более лучший подход по сравнений с Example4_2, т.к. занимается только добавлением нужных читов, без привязки к отображению и тд.
+// Более подходящее имя HealthCheatProvider
 public class SomeManagerWithCheats : CheatManager.ICheatProvider
 {
+    //Health почему-то находится внутри чита, хотя это скорее атрибут какой-то внутриигровой сущности, а не чита
+    //Следует передавать объект Health в конструкторе
     private int _health;
-
+    // Расширение методом Setup нарушает L из soLid,
+    // т.к. же добавляет лишнюю статическую зависимость, можно обойтись текущим интерфейсом ICheatProvider
     public void Setup()
     {
         CheatManager.Instance.RegProvider(this);
